@@ -28,6 +28,25 @@ def process_ticket(raw_text):
     log_ticket(raw_text, intent, confidence, status)
     return status, final_response
 
+    # Проверка на высокорисковые интенты
+    if intent in HIGH_RISK_INTENTS:
+        # принудительная эскалация, но генерируем черновик для агента
+        draft = llm_generator.generate(...) if LLM_AVAILABLE else None
+        confidence = 0.0  # для рискованных тем не доверяем
+        status = "ESCALATED_MANUAL"
+        return status, draft  # черновик передаётся агенту
+    
+    # для обычных интентов - проверка уверенности
+    confidence = confidence_gate.evaluate(draft, docs)
+    if confidence < 0.70:
+        status = "ESCALATED_LOW_CONF"
+    else:
+        status = "AUTO_CLOSED"
+
 # Пример вызова
 result = process_ticket("Не могу войти, забыл пароль. email: user@example.com")
 print(result)  # ('AUTO_CLOSED', 'Инструкция по сбросу пароля...')
+
+# Пример вызова
+result = process_ticket("Неправильный счёт за месяц, заказ #12345")
+print(result)  # ('ESCALATED_MANUAL', 'Черновик: Уважаемый клиент...')

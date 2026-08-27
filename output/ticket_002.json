@@ -1,0 +1,13 @@
+{
+  "ticket_id": "002",
+  "intent": "BILLING_DISPUTE",
+  "entities": {"order_id": "#12345"},
+  "confidence": 0.0,
+  "action": "ESCALATED_MANUAL",
+  "draft_for_agent": "Предлагаем проверить детали заказа...",
+  "retrieved_docs": [
+    "docs/billing_policy.pdf",
+    "docs/faq_payments.html"
+  ],
+  "latency_ms": 580
+}

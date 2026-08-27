@@ -1,0 +1,9 @@
+{
+  "ticket_id": "001",
+  "intent": "PASSWORD_RESET",
+  "entities": {"email": "user@example.com"},
+  "confidence": 0.95,
+  "action": "AUTO_CLOSED",
+  "response": "Здравствуйте! Чтобы сбросить пароль, перейдите по ссылке...",
+  "latency_ms": 420
+}
